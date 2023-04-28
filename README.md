@@ -1,3 +1,3 @@
 # Foraging Map
-## Eeat the wilderness
+## Eat the wilderness
 Foraging Map is a web application showing foraging spots around the world. 
