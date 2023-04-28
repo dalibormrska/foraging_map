@@ -13,7 +13,7 @@ class Database
     private $host = "localhost";
     private $user = "root";
     private $pass = "root";
-    private $db = "app_store";
+    private $db = "foraging_map";
 
     protected $conn;
 

@@ -43,11 +43,11 @@ class UsersDatabase extends Database
     // Create one by creating a query and using the inherited $this->conn 
     public function insert(UserModel $user)
     {
-        $query = "INSERT INTO users (first_name, last_name) VALUES (?, ?)";
+        $query = "INSERT INTO users (user_name, user_password) VALUES (?, ?)";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("ss", $user->first_name, $user->last_name);
+        $stmt->bind_param("ss", $user->user_name, $user->user_password);
 
         $success = $stmt->execute();
 
@@ -57,11 +57,11 @@ class UsersDatabase extends Database
     // Update one by creating a query and using the inherited $this->conn 
     public function updateById($user_id, UserModel $user)
     {
-        $query = "UPDATE users SET first_name=?, last_name=? WHERE user_id=?";
+        $query = "UPDATE users SET user_name=?, user_password=? WHERE user_id=?";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("ssi", $user->first_name, $user->last_name, $user_id);
+        $stmt->bind_param("ssi", $user->user_name, $user->user_password, $user_id);
 
         $success = $stmt->execute();
 

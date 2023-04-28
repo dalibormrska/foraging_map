@@ -6,43 +6,43 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 }
 
 require_once __DIR__ . "/RestAPI.php";
-require_once __DIR__ . "/../business-logic/AppsService.php";
+require_once __DIR__ . "/../business-logic/SpotsService.php";
 
-// Class for handling requests to "api/app"
+// Class for handling requests to "api/spot"
 
-class AppsAPI extends RestAPI
+class SpotsAPI extends RestAPI
 {
 
-    // Handles the request by calling the appropriate member function
+    // Handles the request by calling the spotropriate member function
     public function handleRequest()
     {
 
 
         // If theres two parts in the path and the request method is GET 
-        // it means that the client is requesting "api/apps" and
-        // we should respond by returning a list of all apps 
+        // it means that the client is requesting "api/spots" and
+        // we should respond by returning a list of all spots 
         if ($this->path_count == 2 && $this->method == "GET") {
             $this->getAll();
         }
 
         // If there's three parts in the path and the request method is GET
-        // it means that the client is requesting "api/apps/{something}".
+        // it means that the client is requesting "api/spots/{something}".
         // In our API the last part ({something}) should contain the ID of a 
-        // app and we should respond with the app of that ID
+        // spot and we should respond with the spot of that ID
         else if ($this->path_count == 3 && $this->method == "GET") {
             $this->getById($this->path_parts[2]);
         }
 
         // If theres two parts in the path and the request method is POST 
-        // it means that the client is requesting "api/apps" and we
-        // should get ths contents of the body and create a app.
+        // it means that the client is requesting "api/spots" and we
+        // should get ths contents of the body and create a spot.
         else if ($this->path_count == 2 && $this->method == "POST") {
             $this->postOne();
         }
 
         // If theres two parts in the path and the request method is PUT 
-        // it means that the client is requesting "api/apps/{something}" and we
-        // should get the contents of the body and update the app.
+        // it means that the client is requesting "api/spots/{something}" and we
+        // should get the contents of the body and update the spot.
         else if ($this->path_count == 3 && $this->method == "PUT") {
             $this->putOne($this->path_parts[2]);
         }
@@ -53,8 +53,8 @@ class AppsAPI extends RestAPI
         }
 
         // If theres two parts in the path and the request method is DELETE 
-        // it means that the client is requesting "api/apps/{something}" and we
-        // should get the ID from the URL and delete that app.
+        // it means that the client is requesting "api/spots/{something}" and we
+        // should get the ID from the URL and delete that spot.
         else if ($this->path_count == 3 && $this->method == "DELETE") {
             $this->deleteOne($this->path_parts[2]);
         }
@@ -65,37 +65,37 @@ class AppsAPI extends RestAPI
         }
     }
 
-    // Gets all apps and sends them to the client as JSON
+    // Gets all spots and sends them to the client as JSON
     private function getAll()
     {
-        $apps = AppsService::getAllApps();
+        $spots = SpotsService::getAllSpots();
 
-        $this->sendJson($apps);
+        $this->sendJson($spots);
     }
 
     // Gets one and sends it to the client as JSON
     private function getById($id)
     {
-        $app = AppsService::getAppById($id);
+        $spot = SpotsService::getSpotById($id);
 
-        if ($app) {
-            $this->sendJson($app);
+        if ($spot) {
+            $this->sendJson($spot);
         } else {
             $this->notFound();
         }
     }
 
-    // Gets the contents of the body and saves it as a app by 
+    // Gets the contents of the body and saves it as a spot by 
     // inserting it in the database.
     private function postOne()
     {
-        $app = new AppModel();
+        $spot = new SpotModel();
 
-        $app->app_name = $this->body["app_name"];
-        $app->description = $this->body["description"];
-        $app->price = $this->body["price"];
+        $spot->user_id = $this->body["user_id"];
+        $spot->trefle_id = $this->body["trefle_id"];
+        $spot->coordinates = $this->body["coordinates"];
 
-        $success = AppsService::saveApp($app);
+        $success = SpotsService::saveSpot($spot);
 
         if ($success) {
             $this->created();
@@ -104,17 +104,17 @@ class AppsAPI extends RestAPI
         }
     }
 
-    // Gets the contents of the body and updates the app
+    // Gets the contents of the body and updates the spot
     // by sending it to the DB
     private function putOne($id)
     {
-        $app = new AppModel();
+        $spot = new SpotModel();
 
-        $app->app_name = $this->body["app_name"];
-        $app->description = $this->body["description"];
-        $app->price = $this->body["price"];
+        $spot->user_id = $this->body["user_id"];
+        $spot->trefle_id = $this->body["trefle_id"];
+        $spot->coordinates = $this->body["coordinates"];
 
-        $success = AppsService::updateAppById($id, $app);
+        $success = SpotsService::updateSpotById($id, $spot);
 
         if ($success) {
             $this->ok();
@@ -126,15 +126,15 @@ class AppsAPI extends RestAPI
     // Patch
     private function patchOne($id)
     {
-        $app = AppsService::getAppById($id);
+        $spot = SpotsService::getSpotById($id);
 
-        if ($app) {
+        if ($spot) {
             foreach ($this->body as $key => $value) {
-                $app->$key = $this->body[$key];
+                $spot->$key = $this->body[$key];
             }
             unset($key, $value);
 
-            $success = AppsService::updateAppById($id, $app);
+            $success = SpotsService::updateSpotById($id, $spot);
 
             if ($success) {
                 $this->noContent();
@@ -146,16 +146,16 @@ class AppsAPI extends RestAPI
         }
     }
 
-    // Deletes the app with the specified ID in the DB
+    // Deletes the spot with the specified ID in the DB
     private function deleteOne($id)
     {
-        $app = AppsService::getAppById($id);
+        $spot = SpotsService::getSpotById($id);
 
-        if ($app == null) {
+        if ($spot == null) {
             $this->notFound();
         }
 
-        $success = AppsService::deleteAppById($id);
+        $success = SpotsService::deleteSpotById($id);
 
         if ($success) {
             $this->noContent();
