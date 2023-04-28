@@ -1,2 +1,3 @@
-# mushmap
-MushMap is a web application showing mushroom picking spots around the world.
+# Foraging Map
+## Eeat the wilderness
+Foraging Map is a web application showing foraging spots around the world. 
