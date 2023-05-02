@@ -19,7 +19,7 @@ class RestAPI
     // the request appropriately
     public function __construct($path_parts, $query_params)
     {
-        
+
         // Set the other protected properties
         $this->path_parts = $this->removeEmptyStrings($path_parts);
         $this->query_params = $query_params;
@@ -48,27 +48,32 @@ class RestAPI
 
 
     // Preset response for OK-response (200)
-    protected function ok(){
+    protected function ok()
+    {
         $this->sendJson("OK");
     }
 
     // Preset response for no content (204)
-    protected function noContent(){
+    protected function noContent()
+    {
         $this->sendJson("No content", 204);
     }
 
     // Preset response for if a resource is not found
-    protected function notFound(){
+    protected function notFound()
+    {
         $this->sendJson("Not found", 404);
     }
 
     // Preset response for if a resource is created
-    protected function created(){
+    protected function created()
+    {
         $this->sendJson("Created", 201);
     }
 
     // Preset response for general server error
-    protected function error(){
+    protected function error()
+    {
         $this->sendJson("Error", 500);
     }
 
@@ -79,16 +84,15 @@ class RestAPI
     {
         $input = file_get_contents("php://input");
 
-        if(strlen($input) > 0){
+        if (strlen($input) > 0) {
             $this->body = json_decode($input, true);
         }
-        
     }
 
-    private function removeEmptyStrings($arr) {
-        return array_filter($arr, function($str) {
+    private function removeEmptyStrings($arr)
+    {
+        return array_filter($arr, function ($str) {
             return trim($str) !== '';
         });
     }
-    
 }

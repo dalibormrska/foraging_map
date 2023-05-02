@@ -5,12 +5,14 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
     die('This file cannot be accessed directly.');
 }
 
-require_once __DIR__ . "/AppsAPI.php";
+require_once __DIR__ . "/SpotsAPI.php";
 require_once __DIR__ . "/UsersAPI.php";
+require_once __DIR__ . "/TypesAPI.php";
 
 // Class for routing all our API requests
 
-class APIRouter{
+class APIRouter
+{
 
     private $path_parts, $query_params;
     private $routes = [];
@@ -22,15 +24,17 @@ class APIRouter{
         $this->routes = [
             // Whenever someone calls "api/Customers" we 
             // will load the CustomersAPI class
-            "apps" => "AppsAPI",
-            "users" => "UsersAPI"
+            "spots" => "SpotsAPI",
+            "users" => "UsersAPI",
+            "types" => "TypesAPI"
         ];
 
         $this->path_parts = $path_parts;
         $this->query_params = $query_params;
     }
 
-    public function handleRequest(){
+    public function handleRequest()
+    {
 
         // Get the requested resource from the URL such as "Customers" or "Products"
         $resource = strtolower($this->path_parts[1]);
