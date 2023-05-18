@@ -28,6 +28,7 @@ class FrontendRouter
             // Whenever someone calls "home/Customers" we 
             // will load the CustomerPages class
             "map" => "MapController",
+            "spots" => "SpotController",
             "login" => "LoginController"
         ];
 
@@ -42,7 +43,7 @@ class FrontendRouter
         // Load home page if no resource is specified
         // (the "resource" is the second part of the URL path)
         // ( {BASE_URL}/home/{RESOURCE} )
-        $resource = "map";
+        $resource = array_keys($this->routes)[0];
         $route_class = $this->routes[$resource];
         $request_info = [];
 

@@ -19,11 +19,11 @@ if ($base_path == "api" && count($path_parts) > 1) {
     // Handle requests using the API router
     $api = new APIRouter($path_parts, $query_params);
     $api->handleRequest();
-} else if (count($path_parts) == 1) {
+} else if ($base_path == "map") {
     // Handle requests using the Frontend router
     $frontend = new FrontendRouter($path_parts, $query_params);
     $frontend->handleRequest();
 } else { 
-    header("Location:");
+    header("Location: map");
     die();
 }

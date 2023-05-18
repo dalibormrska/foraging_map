@@ -4,7 +4,7 @@ class Template
 {
     public static function header($title)
     {
-        $home_path = getHomePath();
+        // $home_path = getHomePath();
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -28,10 +28,25 @@ class Template
             <!-- MarkerCluster JS -->
             <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js"></script>
 
-            <title>Foraging Map</title>
+            <title><?= $title ?></title>
         </head>
 
         <body class="h-screen flex flex-col">
+            <!-- <img src="/assets/img/header-bg.jpg" alt=""> -->
+
+            <!-- Navbar -->
+            <nav class="bg-gray-800 py-4">
+                <div class="container mx-auto flex justify-between items-center ">
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/40" alt="Logo Placeholder" class="mr-2">
+                        <span class="text-white font-bold text-xl">Foraging Map</span>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="#" class="text-white mr-4">Sign Up</a>
+                        <a href="#" class="text-white border border-white rounded-full px-4 py-2">Login</a>
+                    </div>
+                </div>
+            </nav>
 
         <?php }
 

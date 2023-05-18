@@ -1,58 +1,44 @@
 <?php
 require_once __DIR__ . "/../Template.php";
 
-Template::header("Home");
+Template::header("Foraging Map");
 ?>
 
-<!-- Navbar -->
-<nav class="bg-gray-800 py-4">
-    <div class="container mx-auto flex justify-between items-center ">
-        <div class="flex items-center">
-            <img src="https://via.placeholder.com/40" alt="Logo Placeholder" class="mr-2">
-            <span class="text-white font-bold text-xl">Foraging Map <?=$this->home?></span>
-        </div>
-        <div class="flex items-center">
-            <a href="#" class="text-white mr-4">Sign Up</a>
-            <a href="#" class="text-white border border-white rounded-full px-4 py-2">Login</a>
-        </div>
-    </div>
-</nav>
 
-<!-- Left Panel and Main Content -->
-<div class="flex-1 flex">
-    <!-- Left Panel -->
-    <div class="bg-gray-200 w-1/4 py-4 px-4">
-        <p class="text-gray-700 font-medium">Placeholder Text</p>
-    </div>
-
-    <!-- Main Content -->
-    <div class="bg-gray-100 w-3/4 py-4 px-4" id="map"></div>
-</div>
+<!-- Main Content -->
+<div class="bg-gray-100 w-full h-full py-4 px-4" id="map"></div>
 
 <script>
+
+    // Create a map
     var map = L.map('map', {
         center: [30, 0],
         zoom: 2,
     });
 
+    // Call tiling API of Open Street Map
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    // Creating a cluster of markers (using leaflet cluster plugin)
     var markers = L.markerClusterGroup();
 
-    fetch('http://localhost:8888/JU_Web/foraging_map/api/spots')
-        .then(response => response.json())
-        .then(spots => {
-            // Loop through the spots and add markers to the map
-            spots.forEach(spot => {
-                markers.addLayer(L.marker([spot.lat_coord, spot.lon_coord]));
-            });
-        })
-        .catch(error => console.error(error));
+    // Reading data in model sent from MapController and saving is as spots
+    let spots = <?= json_encode($this->model); ?>;
 
+    // Looping through each spot and adding it to markers cluster
+    spots.forEach(spot => {
+        markers.addLayer(L.marker([spot.lat_coord, spot.lon_coord]).on('click', function(e) {
+            window.location = "<?= $this->home ?>/" + spot.spot_id;
+        }));
+    });
+
+    // Adding the cluster of markers to the map, the plugin dynamicly takes care of grouping
     map.addLayer(markers);
 </script>
+
+
 
 <?php Template::footer(); ?>
