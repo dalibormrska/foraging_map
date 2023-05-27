@@ -10,6 +10,7 @@ require_once __DIR__ . "/functions.php";
 
 // Load controllers
 require_once __DIR__ . "/controllers/MapController.php";
+require_once __DIR__ . "/controllers/AssetsController.php";
 
 // Class for routing
 
@@ -28,6 +29,7 @@ class FrontendRouter
             // Whenever someone calls "home/Customers" we 
             // will load the CustomerPages class
             "map" => "MapController",
+            "assets" => "AssetsController",
             "login" => "LoginController"
         ];
 

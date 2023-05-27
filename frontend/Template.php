@@ -4,7 +4,7 @@ class Template
 {
     public static function header($title)
     {
-        // $home_path = getHomePath();
+        $home_path = getHomePath();
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -35,15 +35,14 @@ class Template
             <!-- <img src="/assets/img/header-bg.jpg" alt=""> -->
 
             <!-- Navbar -->
-            <nav class="bg-gray-800 py-4">
-                <div class="container mx-auto flex justify-between items-center ">
-                    <div class="flex items-center">
-                        <img src="https://via.placeholder.com/40" alt="Logo Placeholder" class="mr-2">
-                        <span class="text-white font-bold text-xl">Foraging Map</span>
+            <nav class="bg-green-800 py-4 drop-shadow-xl">
+                <div class="container mx-auto flex justify-between items-center">
+                    <div class="flex items-center rounded-lg">
+                        <span class="text-orange-50 font-bold text-xl">Foraging Map</span>
                     </div>
                     <div class="flex items-center">
-                        <a href="#" class="text-white mr-4">Sign Up</a>
-                        <a href="#" class="text-white border border-white rounded-full px-4 py-2">Login</a>
+                        <a href="#" class="text-orange-50 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
+                        <a href="#" class="text-orange-50 border border-orange-50 rounded-full px-4 py-2 hover:bg-orange-50 hover:text-green-800">Login</a>
                     </div>
                 </div>
             </nav>
