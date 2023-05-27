@@ -53,6 +53,11 @@ class MapController extends ControllerBase
         }
     }
 
+
+
+
+
+
     private function showAll()
     {
         $this->model = SpotsService::getAllSpots();
@@ -69,7 +74,7 @@ class MapController extends ControllerBase
 
     private function showOne($id)
     {
-        $this->model = SpotsService::getSpotById($id);
+        $this->model = $this->getOneSpot($id);
 
         $this->viewPage("spots/one");
     }
@@ -81,6 +86,26 @@ class MapController extends ControllerBase
         $this->viewPage("map");
     }
 
+
+
+
+
+    private function getOneSpot($id)
+    {
+        $spot = SpotsService::getSpotById($id);
+
+        if (!$spot) {
+            $this->notFound();
+        }
+
+        return $spot;
+    }
+
+
+
+
+
+    
     private function handlePost()
     {
         $this->model = SpotsService::getAllSpots();

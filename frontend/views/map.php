@@ -11,7 +11,7 @@ Template::header("Foraging Map");
 <script>
 
     // Create a map
-    var map = L.map('map', {
+    let map = L.map('map', {
         center: [30, 0],
         zoom: 2,
     });
@@ -23,7 +23,7 @@ Template::header("Foraging Map");
     }).addTo(map);
 
     // Creating a cluster of markers (using leaflet cluster plugin)
-    var markers = L.markerClusterGroup();
+    let markers = L.markerClusterGroup();
 
     // Reading data in model sent from MapController and saving is as spots
     let spots = <?= json_encode($this->model); ?>;

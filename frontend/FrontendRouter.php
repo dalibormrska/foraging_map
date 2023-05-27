@@ -11,7 +11,7 @@ require_once __DIR__ . "/functions.php";
 // Load controllers
 require_once __DIR__ . "/controllers/MapController.php";
 
-// Class for routing all our API requests
+// Class for routing
 
 class FrontendRouter
 {
@@ -23,12 +23,11 @@ class FrontendRouter
     {
 
         // Available routes
-        // Add to this if you need to add any route to the API
+        // Add to this if you need to add any route to the frontend
         $this->routes = [
             // Whenever someone calls "home/Customers" we 
             // will load the CustomerPages class
             "map" => "MapController",
-            "spots" => "SpotController",
             "login" => "LoginController"
         ];
 
