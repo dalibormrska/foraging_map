@@ -8,7 +8,7 @@ Template::header("Foraging Map");
 <!-- Left Panel and Main Content -->
 <div class="flex-1 flex">
     <!-- Left Panel -->
-    <div class="bg-orange-50 w-1/4 py-4 px-4 drop-shadow-lg">
+    <div class="bg-white w-1/4 py-4 px-4 drop-shadow-lg">
         <h2 class="text-3xl text-gray-700 font-medium">New</h2>
         <p class="text-orange-400 font-medium" id="coordinates">Click on the map...or search for a plant!</p>
         <br>

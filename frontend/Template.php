@@ -42,15 +42,14 @@ class Template
             <!-- <img src="/assets/img/header-bg.jpg" alt=""> -->
 
             <!-- Navbar -->
-            <nav class="bg-green-800 py-4 drop-shadow-xl">
+            <nav class="bg-orange-50 py-4 drop-shadow-xl">
                 <div class="container mx-auto flex justify-between items-center">
                     <div class="flex items-center rounded-lg">
-                    <img src= "<?= $home_path ?>/assets/img/Icon.png" class="h-8 mr-3" alt="Flowbite Icon" />
-                    <img src= "<?= $home_path ?>/assets/img/logo.png" class="h-8 mr-3" alt="Flowbite Logo" />
+                    <img src= "<?= $home_path ?>/assets/img/Logo-13.svg" class="h-8 mr-3" alt="Forage Logo" />
                     </div>
                     <div class="flex items-center">
-                        <a href="#" class="text-white mr-8 hover:underline underline-offset-4 ">Sign Up</a>
-                        <a href="#" class="text-white border border-white rounded-full px-4 py-2 hover:bg-white hover:text-green-800">Login</a>
+                        <a href="#" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
+                        <a href="#" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
                     </div>
                 </div>
             </nav>

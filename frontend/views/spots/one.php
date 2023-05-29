@@ -12,8 +12,8 @@ $user = UsersService::getUserById($this->model->user_id);
 <!-- Left Panel and Main Content -->
 <div class="flex-1 flex flex-row">
     <!-- Left Panel -->
-    <div class="bg-orange-50 w-1/4 py-4 px-4">
-        <h2 class="text-3xl text-gray-700 font-medium"><?= $type->common_name ?></h2>
+    <div class="bg-white w-1/4 py-4 px-4">
+        <h2 class="text-3xl text-gray-700 font-bold"><?= $type->common_name ?></h2>
         <p class="text-gray-400 font-medium"><?= $type->scientific_name ?></p>
         <hr class="h-px mt-1 mb-4 bg-gray-200 border-0 dark:bg-gray-300">
         <div class="user-icon">
