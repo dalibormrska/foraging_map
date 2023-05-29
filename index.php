@@ -4,6 +4,7 @@
 define('MY_APP', true);
 
 // Load the router responsible for handling API requests
+require_once __DIR__ . "/config.php";
 require_once __DIR__ . "/api/APIRouter.php";
 require_once __DIR__ . "/frontend/FrontendRouter.php";
 
