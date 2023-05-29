@@ -25,6 +25,15 @@ class UsersService{
         return $user;
     }
 
+    public static function getUserByUsername($username)
+    {
+        $users_database = new UsersDatabase();
+
+        $user = $users_database->getByUsername($username);
+
+        return $user;
+    }
+
     // Get all customers by creating a database object 
     // from data-access layer and calling its getAll function.
     public static function getAllUsers(){

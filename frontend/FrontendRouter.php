@@ -30,7 +30,7 @@ class FrontendRouter
             // will load the CustomerPages class
             "map" => "MapController",
             "assets" => "AssetsController",
-            "login" => "LoginController"
+            "auth" => "AuthController"
         ];
 
         $this->path_parts = $path_parts;

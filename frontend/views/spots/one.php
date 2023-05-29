@@ -23,7 +23,7 @@ $user = UsersService::getUserById($this->model->user_id);
                 </svg>
             </div>
             <div>
-                <div class="text-gray-400 font-medium">Created by <p class="text-gray-900"><?= $user->user_name ?></p>
+                <div class="text-gray-400 font-medium">Created by <p class="text-gray-900"><?= $user->username ?></p>
                 </div>
                 <div class="text-sm text-gray-400 mb-2">Joined in August 2014</div>
             </div>
