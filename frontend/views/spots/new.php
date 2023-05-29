@@ -13,7 +13,7 @@ Template::header("Foraging Map");
         <p class="text-orange-400 font-medium" id="coordinates">Click on the map...or search for a plant!</p>
         <br>
         <!-- Form -->
-         <form class="mb-2">
+         <form class="mb-2" name="spot" action="<?= $this->home ?>" method="post">
         <!-- Search Bar -->
         <div id="search-bar" class="flex">
             <label for="plant-name" class="sr-only">Search </label>
@@ -23,7 +23,7 @@ Template::header("Foraging Map");
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                     </svg>
                 </div>
-                <input type="text" id="plant-name" class="bg-white border border-green-900 text-gray-900 text-sm rounded-lg focus:ring-green-900 focus:border-orange-900 block w-full pl-10 p-2.5" placeholder="Apple" required>
+                <input type="number" name="type_id" id="plant-name" class="bg-white border border-green-900 text-gray-900 text-sm rounded-lg focus:ring-green-900 focus:border-orange-900 block w-full pl-10 p-2.5" placeholder="Apple" required>
             </div>
             
             <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-green-900 rounded-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-700">
@@ -35,11 +35,11 @@ Template::header("Foraging Map");
         </div>
             <!-- Two Numeral Inputs for coordinates -->
             <label for="Lat" class="block mb-2 text-sm font-medium text-gray-900 ">Latitude</label>
-            <input type="Lat" id="Lat" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-7 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" placeholder="125.56.2">
+            <input type="text" name="lat_coord" id="lat_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-7 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="">
             <label for="Lng" class="block mb-2 text-sm font-medium text-gray-900">Longitude </label>
-            <input type="Lng" id="Lng" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-900 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" placeholder="27.6">
-            <label for="Description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-            <textarea id="Description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-green-700 focus:ring-orange-900 focus:border-orange-900" placeholder="Leave a description..."></textarea>
+            <input type="text" name="lon_coord" id="lon_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-900 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="">
+            <label for="Description"  class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+            <textarea id="Description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-green-700 focus:ring-orange-900 focus:border-orange-900" placeholder="Leave a description..."></textarea>
             <br>
             <button type="submit" class="text-white bg-green-900 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-900 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
@@ -99,6 +99,8 @@ Template::header("Foraging Map");
 
     function updateCoordinates() {
         document.getElementById("coordinates").innerHTML = newPoint.getLatLng();
+        document.getElementById("lat_coord").value = newPoint.getLatLng().lat;
+        document.getElementById("lon_coord").value = newPoint.getLatLng().lng;
     }
 </script>
 

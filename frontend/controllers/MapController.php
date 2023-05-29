@@ -7,7 +7,7 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 
 require_once __DIR__ . "/../ControllerBase.php";
 
-// Class for handling requests to "api/Customer"
+// Class for handling requests to "api/Spot"
 
 class MapController extends ControllerBase
 {
@@ -44,7 +44,7 @@ class MapController extends ControllerBase
         // {SOMETHING1} is probably the spot_id
         // if {SOMETHING2} is "edit" we will show the edit form
         else if ($this->path_count == 3 && is_numeric($this->path_parts[1]) && $this->path_parts[2] == "edit") {
-            $this->showEditSpot();
+            $this->showEditSpot($this->path_parts[1]);
         }
 
         // Show "404 not found" if the path is invalid
@@ -79,11 +79,11 @@ class MapController extends ControllerBase
         $this->viewPage("spots/one");
     }
 
-    private function showEditSpot()
+    private function showEditSpot($id)
     {
-        $this->model = SpotsService::getAllSpots();
+        $this->model = $this->getOneSpot($id);
 
-        $this->viewPage("map");
+        $this->viewPage("spots/edit");
     }
 
 
@@ -105,11 +105,104 @@ class MapController extends ControllerBase
 
 
 
-    
+
+    // handle all post requests for spots in one place
     private function handlePost()
     {
-        $this->model = SpotsService::getAllSpots();
 
-        $this->viewPage("map");
+        if ($this->path_count == 1) {
+            $this->createSpot();
+        }
+
+        // Path count is 4 meaning the current URL must be "/map/{SOMETHING1}/{SOMETHING2}"
+        // {SOMETHING1} is probably the Spot_id
+        // if {SOMETHING2} is "edit" we will update the user
+        else if ($this->path_count == 3 && $this->path_parts[2] == "edit") {
+            $this->updateSpot();
+        }
+
+        // Path count is 4 meaning the current URL must be "/map/{SOMETHING1}/{SOMETHING2}"
+        // {SOMETHING1} is probably the Spot_id
+        // if {SOMETHING2} is "edit" we will show the edit form
+        else if ($this->path_count == 3 && $this->path_parts[2] == "delete") {
+            $this->deleteSpot();
+        }
+
+        // Show "404 not found" if the path is invalid
+        else {
+            $this->notFound();
+        }
+    }
+
+    // Create a spot with data from the URL and body
+    private function createSpot()
+    {
+        $spot = new SpotModel();
+
+        var_dump($this->body);
+
+        // Get updated properties from the body
+        $spot->lat_coord = $this->body["lat_coord"];
+        $spot->lon_coord = $this->body["lon_coord"];
+        $spot->description = $this->body["description"];
+        $spot->type_id = $this->body["type_id"];
+        $spot->user_id = 1;
+
+
+        // Save the spot
+        $success = SpotsService::savespot($spot);
+
+        // Redirect or show error based on response from business logic layer
+        if ($success) {
+            $this->redirect($this->home);
+        } else {
+            $this->error();
+        }
+    }
+
+    // Update a user with data from the URL and body
+    private function updateSpot()
+    {
+
+        $spot = new SpotModel();
+
+        // Get ID from the URL
+        $id = $this->path_parts[1];
+
+        // Get updated properties from the body
+        $spot->lat_coord = $this->body["lat_coord"];
+        $spot->lon_coord = $this->body["lon_coord"];
+        $spot->description = $this->body["description"];
+        $spot->type_id = $this->body["type_id"];
+        $spot->user_id = 1;
+
+        // Update the spot
+        $success = SpotsService::updateSpotById($id, $spot);
+
+        // Redirect or show error based on response from business logic layer
+        if ($success) {
+            $this->redirect($this->home . '/' . $id);
+        } else {
+            $this->error();
+        }
+    }
+
+
+    // Delete a user with data from the URL
+    private function deleteSpot()
+    {
+
+        // Get ID from the URL
+        $id = $this->path_parts[1];
+
+        // Delete the spot
+        $success = SpotsService::deleteSpotById($id);
+
+        // Redirect or show error based on response from business logic layer
+        if ($success) {
+            $this->redirect($this->home);
+        } else {
+            $this->error();
+        }
     }
 }
