@@ -28,7 +28,7 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
                 </div>
                 <div class="text-sm text-gray-400 mb-2"><?= $spot->creation_date ?></div>
             </div>
-            
+
             <p class="text-gray-400 font-medium">Location</p>
             <p class="text-gray-800 font-medium mb-2"><?= $this->model->lon_coord . ", " . $this->model->lat_coord ?></p>
             <p class="text-gray-400 font-medium">Description</p>
@@ -42,28 +42,28 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
     <div class="bg-gray-100 w-3/4 py-4 px-4" id="map"></div>
 </div>
 
-    <script>
-        let map = L.map('map', {
-            center: [<?= $this->model->lat_coord ?>, <?= $this->model->lon_coord ?>],
-            zoom: 14,
-        });
+<script>
+    let map = L.map('map', {
+        center: [<?= $this->model->lat_coord ?>, <?= $this->model->lon_coord ?>],
+        zoom: 14,
+    });
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
-        let markers = L.markerClusterGroup();
+    let markers = L.markerClusterGroup();
 
-        let spots = <?= json_encode(SpotsService::getAllSpots()); ?>;
+    let spots = <?= json_encode(SpotsService::getAllSpots()); ?>;
 
-        spots.forEach(spot => {
-            markers.addLayer(L.marker([spot.lat_coord, spot.lon_coord]).on('click', function(e) {
-                window.location = "<?= $this->home ?>/" + spot.spot_id;
-            }));
-        });
+    spots.forEach(spot => {
+        markers.addLayer(L.marker([spot.lat_coord, spot.lon_coord]).on('click', function(e) {
+            window.location = "<?= $this->home ?>/" + spot.spot_id;
+        }));
+    });
 
-        map.addLayer(markers);
-    </script>
+    map.addLayer(markers);
+</script>
 
-    <?php Template::footer(); ?>
+<?php Template::footer(); ?>
