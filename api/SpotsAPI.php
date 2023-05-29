@@ -47,11 +47,6 @@ class SpotsAPI extends RestAPI
             $this->putOne($this->path_parts[2]);
         }
 
-        // Patch
-        else if ($this->path_count == 3 && $this->method == "PATCH") {
-            $this->patchOne($this->path_parts[2]);
-        }
-
         // If theres two parts in the path and the request method is DELETE 
         // it means that the client is requesting "api/spots/{something}" and we
         // should get the ID from the URL and delete that spot.
@@ -89,12 +84,20 @@ class SpotsAPI extends RestAPI
     // inserting it in the database.
     private function postOne()
     {
+        $this->requireAuth();
+
         $spot = new SpotModel();
 
-        $spot->user_id = $this->body["user_id"];
         $spot->type_id = $this->body["type_id"];
         $spot->lat_coord = $this->body["lat_coord"];
         $spot->lon_coord = $this->body["lon_coord"];
+
+        // Admins can create a spot for any user
+        if ($this->user->user_role === 1) {
+            $spot->user_id = $this->body["user_id"];
+        } else {
+            $spot->user_id = $this->user->user_id;
+        }
 
         $success = SpotsService::saveSpot($spot);
 
@@ -109,6 +112,8 @@ class SpotsAPI extends RestAPI
     // by sending it to the DB
     private function putOne($id)
     {
+        $this->requireAuth();
+
         $spot = new SpotModel();
 
         $spot->user_id = $this->body["user_id"];
@@ -116,7 +121,28 @@ class SpotsAPI extends RestAPI
         $spot->lat_coord = $this->body["lat_coord"];
         $spot->lon_coord = $this->body["lon_coord"];
 
-        $success = SpotsService::updateSpotById($id, $spot);
+        // Admins can create a spot for any user
+        if ($this->user->user_role === 1) {
+            $spot->user_id = $this->body["user_id"];
+        } else {
+            $spot->user_id = $this->user->user_id;
+        }
+
+
+        $requested_spot = SpotsService::getSpotById($id);
+
+        if (!$requested_spot) {
+            $this->notFound();
+        }
+
+        // If user is an admin or the author of the spot, they can proceed
+        if ($this->user->user_role === 1 || $requested_spot->user_id === $this->user->user_id) {
+            $success = SpotsService::updateSpotById($id, $spot);
+        } else {
+            $this->forbidden();
+        }
+
+
 
         if ($success) {
             $this->ok();
@@ -125,39 +151,22 @@ class SpotsAPI extends RestAPI
         }
     }
 
-    // Patch
-    private function patchOne($id)
-    {
-        $spot = SpotsService::getSpotById($id);
-
-        if ($spot) {
-            foreach ($this->body as $key => $value) {
-                $spot->$key = $this->body[$key];
-            }
-            unset($key, $value);
-
-            $success = SpotsService::updateSpotById($id, $spot);
-
-            if ($success) {
-                $this->noContent();
-            } else {
-                $this->error();
-            }
-        } else {
-            $this->notFound();
-        }
-    }
-
     // Deletes the spot with the specified ID in the DB
     private function deleteOne($id)
     {
-        $spot = SpotsService::getSpotById($id);
+        $requested_spot = SpotsService::getSpotById($id);
 
-        if ($spot == null) {
+        if ($requested_spot == null) {
             $this->notFound();
         }
 
-        $success = SpotsService::deleteSpotById($id);
+        // If user is an admin or the author of the spot, they can proceed
+        if ($this->user->user_role === 1 || $requested_spot->user_id === $this->user->user_id) {
+            $success = SpotsService::deleteSpotById($id);
+        } else {
+            $this->forbidden();
+        }
+
 
         if ($success) {
             $this->noContent();
