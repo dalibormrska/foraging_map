@@ -5,6 +5,7 @@ Template::header("Foraging Map");
 
 $type = TypesService::getTypeById($this->model->type_id);
 $user = UsersService::getUserById($this->model->user_id);
+$spot = SpotsService::getSpotById($this->model->spot_id);
 ?>
 
 
@@ -25,14 +26,14 @@ $user = UsersService::getUserById($this->model->user_id);
             <div>
                 <div class="text-gray-400 font-medium">Created by <p class="text-gray-900"><?= $user->username ?></p>
                 </div>
-                <div class="text-sm text-gray-400 mb-2">Joined in August 2014</div>
+                <div class="text-sm text-gray-400 mb-2"><?= $spot->creation_date ?></div>
             </div>
             
             <p class="text-gray-400 font-medium">Location</p>
             <p class="text-gray-800 font-medium mb-2"><?= $this->model->lon_coord . ", " . $this->model->lat_coord ?></p>
             <p class="text-gray-400 font-medium">Description</p>
             <p class="h-auto pr-2 py-1
-             text-left text-gray-600 font-medium text-sm mb-2">Lorem</p>
+             text-left text-gray-600 font-medium text-sm mb-2"><?= $spot->description ?></p>
             <br>
             <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 hover:bg-green-700 hover:text-orange-50" href="<?= $this->home ?>/<?= $this->path_parts[1] ?>/edit">Edit spot</a>
         </div>

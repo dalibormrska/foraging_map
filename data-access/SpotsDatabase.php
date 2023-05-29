@@ -64,11 +64,11 @@ class SpotsDatabase extends Database
     // Create one by creating a query and using the inherited $this->conn 
     public function insert(SpotModel $spot)
     {
-        $query = "INSERT INTO spots (user_id, type_id, lat_coord, lon_coord) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO spots (user_id, type_id, lat_coord, lon_coord, description) VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("iiss", $spot->user_id, $spot->type_id, $spot->lat_coord, $spot->lon_coord);
+        $stmt->bind_param("iisss", $spot->user_id, $spot->type_id, $spot->lat_coord, $spot->lon_coord, $spot->description);
 
         $success = $stmt->execute();
 
@@ -78,11 +78,11 @@ class SpotsDatabase extends Database
     // Update one by creating a query and using the inherited $this->conn 
     public function updateById($spot_id, SpotModel $spot)
     {
-        $query = "UPDATE spots SET user_id=?, type_id=?, lat_coord=?, lon_coord=? WHERE spot_id=?";
+        $query = "UPDATE spots SET user_id=?, type_id=?, lat_coord=?, lon_coord=?, description=? WHERE spot_id=?";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("iissi", $spot->user_id, $spot->type_id, $spot->lat_coord, $spot->lon_coord, $spot_id);
+        $stmt->bind_param("iisssi", $spot->user_id, $spot->type_id, $spot->lat_coord, $spot->lon_coord, $spot->description, $spot_id);
 
         $success = $stmt->execute();
 

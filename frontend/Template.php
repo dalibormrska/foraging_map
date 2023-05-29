@@ -56,6 +56,7 @@ class Template
                             <a href="<?= $home_path ?>/auth/register" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
                             <a href="<?= $home_path ?>/auth/login" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
                         <?php endif; ?>
+
                     </div>
                 </div>
             </nav>

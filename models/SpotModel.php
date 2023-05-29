@@ -15,4 +15,5 @@ class SpotModel
     public $creation_date;
     public $lat_coord;
     public $lon_coord;
+    public $description;
 }
