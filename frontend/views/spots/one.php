@@ -24,7 +24,7 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
                 </svg>
             </div>
             <div>
-                <div class="text-gray-400 font-medium">Created by <p class="text-gray-900"><?= $user->user_name ?></p>
+                <div class="text-gray-400 font-medium">Created by <p class="text-gray-900"><?= $user->username ?></p>
                 </div>
                 <div class="text-sm text-gray-400 mb-2"><?= $spot->creation_date ?></div>
             </div>

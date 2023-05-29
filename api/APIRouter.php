@@ -8,6 +8,7 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 require_once __DIR__ . "/SpotsAPI.php";
 require_once __DIR__ . "/UsersAPI.php";
 require_once __DIR__ . "/TypesAPI.php";
+require_once __DIR__ . "/AuthAPI.php";
 require_once __DIR__ . "/APIRoot.php";
 
 // Class for routing all our API requests
@@ -28,6 +29,7 @@ class APIRouter
             "spots" => "SpotsAPI",
             "users" => "UsersAPI",
             "types" => "TypesAPI",
+            "auth" => "AuthAPI",
             "root" => "APIRoot"
         ];
 

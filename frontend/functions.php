@@ -20,3 +20,12 @@ function getHomePath()
     // Return the full home path
     return $home_path;
 }
+
+function getUser()
+{
+    if (!isset($_SESSION["user"])) {
+        return false;
+    }
+
+    return UsersService::getUserById($_SESSION["user"]->user_id);
+}

@@ -68,6 +68,8 @@ class UsersAPI extends RestAPI
     // Gets all users and sends them to the client as JSON
     private function getAll()
     {
+        $this->requireAuth([1]);
+
         $users = UsersService::getAllUsers();
 
         $this->sendJson($users);
@@ -76,6 +78,8 @@ class UsersAPI extends RestAPI
     // Gets one and sends it to the client as JSON
     private function getById($id)
     {
+        $this->requireAuth([1]);
+
         $user = UsersService::getUserById($id);
 
         if ($user) {
@@ -90,10 +94,12 @@ class UsersAPI extends RestAPI
     // inserting it in the database.
     private function postOne()
     {
+        $this->requireAuth([1]);
+
         $user = new UserModel();
 
-        $user->user_name = $this->body["user_name"];
-        $user->user_password = $this->body["user_password"];
+        $user->username = $this->body["username"];
+        $user->password_hash = $this->body["password_hash"];
 
         $success = UsersService::saveUser($user);
 
@@ -109,10 +115,12 @@ class UsersAPI extends RestAPI
     // by sending it to the DB
     private function putOne($id)
     {
+        $this->requireAuth([1]);
+
         $user = new UserModel();
 
-        $user->user_name = $this->body["user_name"];
-        $user->user_password = $this->body["user_password"];
+        $user->username = $this->body["username"];
+        $user->password_hash = $this->body["password_hash"];
 
         $success = UsersService::updateUserById($id, $user);
 
@@ -127,6 +135,8 @@ class UsersAPI extends RestAPI
     // Patch
     private function patchOne($id)
     {
+        $this->requireAuth([1]);
+
         $user = UsersService::getUserById($id);
 
         if ($user) {
@@ -150,6 +160,8 @@ class UsersAPI extends RestAPI
     // Deletes the user with the specified ID in the DB
     private function deleteOne($id)
     {
+        $this->requireAuth([1]);
+
         $user = UsersService::getUserById($id);
 
         if($user == null){

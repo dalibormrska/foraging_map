@@ -44,6 +44,23 @@ class SpotsService
         return $spots;
     }
 
+    // Get all spots by creating a database object 
+    // from data-access layer and calling its getAll function.
+    public static function getSpotsByUser($user_id)
+    {
+        $spots_database = new SpotsDatabase();
+
+        $spots = $spots_database->getBySpotId($user_id);
+
+        // If you need to remove or hide data that shouldn't
+        // be shown in the API response you can do that here
+        // An example of data to hide is users password hash 
+        // or other secret/sensitive data that shouldn't be 
+        // exposed to users calling the API
+
+        return $spots;
+    }
+
     // Save a customer to the database by creating a database object 
     // from data-access layer and calling its insert function.
     public static function saveSpot(SpotModel $spot)

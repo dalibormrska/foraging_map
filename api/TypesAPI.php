@@ -68,6 +68,8 @@ class TypesAPI extends RestAPI
     // Gets all types and sends them to the client as JSON
     private function getAll()
     {
+        $this->requireAuth([1]);
+
         $types = TypesService::getAllTypes();
 
         $this->sendJson($types);
@@ -76,6 +78,8 @@ class TypesAPI extends RestAPI
     // Gets one and sends it to the client as JSON
     private function getById($id)
     {
+        $this->requireAuth([1]);
+
         $type = TypesService::getTypeById($id);
 
         if ($type) {
@@ -90,6 +94,8 @@ class TypesAPI extends RestAPI
     // inserting it in the database.
     private function postOne()
     {
+        $this->requireAuth([1]);
+
         $type = new TypeModel();
 
         $type->trefle_id = $this->body["trefle_id"];
@@ -110,6 +116,8 @@ class TypesAPI extends RestAPI
     // by sending it to the DB
     private function putOne($id)
     {
+        $this->requireAuth([1]);
+
         $type = new TypeModel();
 
         $type->trefle_id = $this->body["trefle_id"];
@@ -129,6 +137,8 @@ class TypesAPI extends RestAPI
     // Patch
     private function patchOne($id)
     {
+        $this->requireAuth([1]);
+
         $type = TypesService::getTypeById($id);
 
         if ($type) {
@@ -152,6 +162,8 @@ class TypesAPI extends RestAPI
     // Deletes the type with the specified ID in the DB
     private function deleteOne($id)
     {
+        $this->requireAuth([1]);
+
         $type = TypesService::getTypeById($id);
 
         if($type == null){

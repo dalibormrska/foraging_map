@@ -40,6 +40,27 @@ class SpotsDatabase extends Database
         return $spots;
     }
 
+    public function getBySpotId($user_id)
+    {
+        $query = "SELECT * FROM spots WHERE user_id = ?";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bind_param("i", $user_id);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $spots = [];
+
+        while ($spot = $result->fetch_object("SpotModel")) {
+            $spots[] = $spot;
+        }
+
+        return $spots;
+    }
+
     // Create one by creating a query and using the inherited $this->conn 
     public function insert(SpotModel $spot)
     {

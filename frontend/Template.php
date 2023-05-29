@@ -5,6 +5,8 @@ class Template
     public static function header($title)
     {
         $home_path = getHomePath();
+        $user = getUser();
+
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -13,14 +15,14 @@ class Template
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            
+
             <!-- Linking adobe fonts -->
             <link rel="stylesheet" href="https://use.typekit.net/dxm1csy.css">
-            
+
             <!-- CSS stylesheet, check README.md -->
             <link href="<?= $home_path ?>/assets/css/output.css" rel="stylesheet">
-            
-            
+
+
 
             <!-- Leaflet CSS -->
             <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
@@ -45,11 +47,16 @@ class Template
             <nav class="bg-orange-50 py-4 drop-shadow-xl">
                 <div class="container mx-auto flex justify-between items-center">
                     <div class="flex items-center rounded-lg">
-                    <img src= "<?= $home_path ?>/assets/img/Logo-13.svg" class="h-8 mr-3" alt="Forage Logo" />
+                        <img src="<?= $home_path ?>/assets/img/Logo-13.svg" class="h-8 mr-3" alt="Forage Logo" />
                     </div>
                     <div class="flex items-center">
-                        <a href="#" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
-                        <a href="<?$home_path?>/auth/login" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
+                        <?php if ($user) : ?>
+                            <a href="#" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Log Out</a>
+                        <?php else : ?>
+                            <a href="<?= $home_path ?>/auth/register" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
+                            <a href="<?= $home_path ?>/auth/login" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </nav>
