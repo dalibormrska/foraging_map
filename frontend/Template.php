@@ -47,7 +47,7 @@ class Template
             <nav class="bg-orange-50 py-4 drop-shadow-xl">
                 <div class="container mx-auto flex justify-between items-center">
                     <div class="flex items-center rounded-lg">
-                        <img src="<?= $home_path ?>/assets/img/Logo-13.svg" class="h-8 mr-3" alt="Forage Logo" />
+                        <a href="<?= $home_path ?>"><img src="<?= $home_path ?>/assets/img/Logo-13.svg" class="h-8 mr-3" alt="Forage Logo" /></a>
                     </div>
                     <div class="flex items-center">
                         <?php if ($user) : ?>
