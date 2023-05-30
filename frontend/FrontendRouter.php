@@ -11,6 +11,7 @@ require_once __DIR__ . "/functions.php";
 // Load controllers
 require_once __DIR__ . "/controllers/MapController.php";
 require_once __DIR__ . "/controllers/AssetsController.php";
+require_once __DIR__ . "/controllers/AuthController.php";
 
 // Class for routing
 

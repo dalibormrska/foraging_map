@@ -2,7 +2,7 @@
 
 class Template
 {
-    public static function header($title)
+    public static function header($title, $error = false)
     {
         $home_path = getHomePath();
         $user = getUser();
@@ -60,16 +60,25 @@ class Template
                     </div>
                 </div>
             </nav>
+            <!-- Main -->
+            
+                <?php if ($error) : ?>
+                    <div class="error">
+                        <p><?= $error ?></p>
+                    </div>
+                <?php endif; ?>
 
-        <?php }
+            <?php
+        }
 
 
 
-    public static function footer()
-    {
-        ?>
+        public static function footer()
+        {
+            ?>
         </body>
+
 
         </html>
 <?php }
-}
+    }
