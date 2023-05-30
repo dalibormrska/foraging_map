@@ -52,9 +52,10 @@ class Template
                     <div class="flex items-center">
                         <?php if ($user) : ?>
                             <p class="px-8">
-                               Aloha,   <b class="text-orange-600"><?= $user->username ?></b>
+                                Aloha, <b class="text-orange-600"><?= $user->username ?></b>
                             </p>
                             <a href="<?= $home_path ?>/auth/logout" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Log Out</a>
+                            <a href="<?= $home_path ?>/new" class="text-gray-900 border border-green-900 rounded-full ml-4 px-4 py-2 hover:bg-green-800 hover:text-white">New Spot</a>
                         <?php else : ?>
                             <a href="<?= $home_path ?>/auth/register" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
                             <a href="<?= $home_path ?>/auth/login" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
