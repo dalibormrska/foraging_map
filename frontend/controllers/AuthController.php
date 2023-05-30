@@ -33,6 +33,11 @@ class AuthController extends ControllerBase
             $this->showRegisterForm();
         }
 
+        // GET: /home/auth/logout
+        else if ($this->path_count == 3 && $this->path_parts[2] == "logout") {
+            $this->logoutUser();
+        }
+
         // Show "404 not found" if the path is invalid
         else {
             $this->notFound();
@@ -65,11 +70,6 @@ class AuthController extends ControllerBase
         // POST: /home/auth/register
         else if ($this->path_count == 3 && $this->path_parts[2] == "register") {
             $this->registerUser();
-        }
-
-        // POST: /home/auth/logout
-        else if ($this->path_count == 3 && $this->path_parts[2] == "logout") {
-            $this->logoutUser();
         }
 
         // Show "404 not found" if the path is invalid
@@ -136,5 +136,4 @@ class AuthController extends ControllerBase
 
         $this->redirect($this->home . "/auth/login");
     }
-
 }

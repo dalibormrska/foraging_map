@@ -51,7 +51,7 @@ class Template
                     </div>
                     <div class="flex items-center">
                         <?php if ($user) : ?>
-                            <a href="#" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Log Out</a>
+                            <a href="<?= $home_path ?>/auth/logout" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Log Out</a>
                         <?php else : ?>
                             <a href="<?= $home_path ?>/auth/register" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
                             <a href="<?= $home_path ?>/auth/login" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Login</a>
