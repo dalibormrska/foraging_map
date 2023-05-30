@@ -22,7 +22,7 @@ Start a watcher
 
 ## APIs Used
 
-This application was built using [Trefle API] (https://trefle.io/) and [Leaflet API](https://leafletjs.com/).
+This application was built using [Trefle API](https://trefle.io/) and [Leaflet API](https://leafletjs.com/).
 
 Trefle API was used to search and add foraging plant type to a spot. 
 
