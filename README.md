@@ -1,12 +1,12 @@
 # Foraging Map
 ### version 1.0
-*30/05/2023*
 
 ## Eat the wilderness
+:blueberries::strawberry::green_apple::cherries:
 
 ***Foraging Map*** is a web application showing foraging spots around the world.
 
-You can create your own foraging spot and add the type of plant you found there. 
+You can create your own foraging spot :compass: and add the type of plant you found there. 
 
 Even if you don't log in you can see all the spots created by other users. 
 
@@ -30,4 +30,10 @@ Leaflet API was used to display the map, locate a spot and access the location's
 
 ## About
 
-This application is created by *Dalibor* and *Zoe*. We are two students in Sweden. This is our last project before graduation. Thank you for visiting.
+This application is created by *Dalibor* :duck: and *Zoe* :black_cat:. 
+
+We are two students in Sweden. This is our last project before graduation. 
+
+Thank you for visiting.
+
+*30/05/2023*
