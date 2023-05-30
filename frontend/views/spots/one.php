@@ -32,10 +32,24 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
             <p class="text-gray-400 font-medium">Location</p>
             <p class="text-gray-800 font-medium mb-2"><?= $this->model->lon_coord . ", " . $this->model->lat_coord ?></p>
             <p class="text-gray-400 font-medium">Description</p>
-            <p class="h-auto pr-2 py-1
-             text-left text-gray-600 font-medium text-sm mb-2"><?= $spot->description ?></p>
+            <p class="h-auto pr-2 py-1 text-left text-gray-600 font-medium text-sm mb-2"><?= $spot->description ?></p>
             <br>
-            <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 hover:bg-green-700 hover:text-orange-50" href="<?= $this->home ?>/<?= $this->path_parts[1] ?>/edit">Edit spot</a>
+            <?php if ($this->user) : ?>
+                <?php if ( $this->user->username === $user->username) : ?>
+                    <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 hover:bg-green-700 hover:text-orange-50" href="<?= $this->home ?>/<?= $this->path_parts[1] ?>/edit">Edit spot</a>
+                <?php else : ?>
+                    <h2 class="text-orange-400 font-medium mt-4 py-8">
+                        Only creator can edit.
+                    </h2>
+                        <br>
+                        <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 hover:bg-green-700 hover:text-orange-50 mt-4" href="<?= $this->home ?>/new">Create your own spot</a>
+                    
+                <?php endif; ?>
+            <?php else : ?>
+                <h2 class="text-orange-400 font-medium mt-4 py-8">
+                        Login to edit or create a spot.
+                    </h2>
+            <?php endif; ?>
         </div>
     </div>
     <!-- Main Content -->

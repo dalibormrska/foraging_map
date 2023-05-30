@@ -51,6 +51,9 @@ class Template
                     </div>
                     <div class="flex items-center">
                         <?php if ($user) : ?>
+                            <p class="px-8">
+                               Aloha,   <b class="text-orange-600"><?= $user->username ?></b>
+                            </p>
                             <a href="<?= $home_path ?>/auth/logout" class="text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">Log Out</a>
                         <?php else : ?>
                             <a href="<?= $home_path ?>/auth/register" class="text-gray-900 mr-8 hover:underline underline-offset-4 ">Sign Up</a>
@@ -61,24 +64,23 @@ class Template
                 </div>
             </nav>
             <!-- Main -->
-            
-                <?php if ($error) : ?>
-                    <div class="error">
-                        <p><?= $error ?></p>
-                    </div>
-                <?php endif; ?>
+            <?php if ($error) : ?>
+                <div class="error">
+                    <p><?= $error ?></p>
+                </div>
+            <?php endif; ?>
 
-            <?php
-        }
-
+        <?php
+    }
 
 
-        public static function footer()
-        {
-            ?>
+
+    public static function footer()
+    {
+        ?>
         </body>
 
 
         </html>
 <?php }
-    }
+}
