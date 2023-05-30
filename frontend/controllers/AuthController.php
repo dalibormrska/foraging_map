@@ -93,7 +93,7 @@ class AuthController extends ControllerBase
 
         $_SESSION["user"] = $user;
 
-        $this->redirect($this->home . "/map");
+        $this->redirect($this->home);
     }
 
 
