@@ -10,7 +10,7 @@ Template::header("Foraging Map");
     <!-- Left Panel -->
     <div class="bg-white w-1/4 py-4 px-4 drop-shadow-lg">
         <h2 class="text-3xl text-gray-700 font-medium">New</h2>
-        <p class="text-orange-400 font-medium" id="coordinates">Click on the map...or search for a plant!</p>
+        <p class="text-orange-400 font-medium" id="coordinates">Click on the map...and search for a plant!</p>
         <br>
         <!-- Form -->
          <form class="mb-2" name="spot" action="<?= $this->home ?>" method="post">
@@ -35,9 +35,9 @@ Template::header("Foraging Map");
         </div>
             <!-- Two Numeral Inputs for coordinates -->
             <label for="Lat" class="block mb-2 text-sm font-medium text-gray-900 ">Latitude</label>
-            <input type="text" name="lat_coord" id="lat_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-7 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="">
+            <input type="text" name="lat_coord" id="lat_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-7 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="" required>
             <label for="Lng" class="block mb-2 text-sm font-medium text-gray-900">Longitude </label>
-            <input type="text" name="lon_coord" id="lon_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-900 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="">
+            <input type="text" name="lon_coord" id="lon_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-900 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="" required>
             <label for="Description"  class="block mb-2 text-sm font-medium text-gray-900">Description</label>
             <textarea id="Description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-green-700 focus:ring-orange-900 focus:border-orange-900" placeholder="Leave a description..."></textarea>
             <br>
