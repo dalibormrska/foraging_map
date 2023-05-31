@@ -6,6 +6,7 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 }
 
 require_once __DIR__ . "/../data-access/SpotsDatabase.php";
+require_once __DIR__ . "/../data-access/TypesDatabase.php";
 
 class SpotsService
 {
@@ -18,11 +19,12 @@ class SpotsService
 
         $spot = $spots_database->getOne($id);
 
-        // If you need to remove or hide data that shouldn't
-        // be shown in the API response you can do that here
-        // An example of data to hide is users password hash 
-        // or other secret/sensitive data that shouldn't be 
-        // exposed to users calling the API
+        // Add trefle_id
+        $types_database = new TypesDatabase();
+
+        $type = $types_database->getOne($spot->type_id);
+
+        $spot->trefle_id = $type->trefle_id;
 
         return $spot;
     }

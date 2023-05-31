@@ -162,8 +162,6 @@ class MapController extends ControllerBase
             }
         }
 
-        var_dump($retrieved_type);
-
         $spot->type_id = $retrieved_type->type_id;
 
 
@@ -191,8 +189,26 @@ class MapController extends ControllerBase
         $spot->lat_coord = $this->body["lat_coord"];
         $spot->lon_coord = $this->body["lon_coord"];
         $spot->description = $this->body["description"];
-        $spot->type_id = $this->body["type_id"];
         $spot->user_id = getUser()->user_id;
+
+
+        $retrieved_type = TypesService::getTypeByTrefleId($this->body["trefle_id"]);
+
+        if (!$retrieved_type) {
+
+            $new_type = TrefleService::getPlant($this->body["trefle_id"]);
+
+            $success = TypesService::saveType($new_type);
+
+            if ($success) {
+                $retrieved_type = TypesService::getTypeByTrefleId($this->body["trefle_id"]);
+            } else {
+                $this->error();
+            }
+        }
+
+        $spot->type_id = $retrieved_type->type_id;
+
 
         // Update the spot
         $success = SpotsService::updateSpotById($id, $spot);
