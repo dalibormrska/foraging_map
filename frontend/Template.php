@@ -38,6 +38,7 @@ class Template
             <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js"></script>
 
             <title><?= $title ?></title>
+            <link rel="icon" type="image/x-icon" href="<?= $home_path ?>/assets/img/favicon.ico">
         </head>
 
         <body class="h-screen flex flex-col">
@@ -61,24 +62,23 @@ class Template
                 </div>
             </nav>
             <!-- Main -->
-            
-                <?php if ($error) : ?>
-                    <div class="error">
-                        <p><?= $error ?></p>
-                    </div>
-                <?php endif; ?>
 
-            <?php
-        }
+            <?php if ($error) : ?>
+                <div class="error">
+                    <p><?= $error ?></p>
+                </div>
+            <?php endif; ?>
+
+        <?php
+    }
 
 
 
-        public static function footer()
-        {
-            ?>
+    public static function footer()
+    {
+        ?>
         </body>
-
 
         </html>
 <?php }
-    }
+}
