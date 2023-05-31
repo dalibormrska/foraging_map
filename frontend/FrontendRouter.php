@@ -12,6 +12,7 @@ require_once __DIR__ . "/functions.php";
 require_once __DIR__ . "/controllers/MapController.php";
 require_once __DIR__ . "/controllers/AssetsController.php";
 require_once __DIR__ . "/controllers/AuthController.php";
+require_once __DIR__ . "/controllers/TrefleController.php";
 
 // Class for routing
 
@@ -31,7 +32,8 @@ class FrontendRouter
             // will load the CustomerPages class
             "map" => "MapController",
             "assets" => "AssetsController",
-            "auth" => "AuthController"
+            "auth" => "AuthController",
+            "trefle" => "TrefleController"
         ];
 
         $this->path_parts = $path_parts;
