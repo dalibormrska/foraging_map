@@ -146,7 +146,7 @@ class MapController extends ControllerBase
         $spot->lon_coord = $this->body["lon_coord"];
         $spot->description = $this->body["description"];
         $spot->type_id = $this->body["type_id"];
-        $spot->user_id = 1;
+        $spot->user_id = getUser()->user_id;
 
 
         // Save the spot
@@ -174,7 +174,7 @@ class MapController extends ControllerBase
         $spot->lon_coord = $this->body["lon_coord"];
         $spot->description = $this->body["description"];
         $spot->type_id = $this->body["type_id"];
-        $spot->user_id = 1;
+        $spot->user_id = getUser()->user_id;
 
         // Update the spot
         $success = SpotsService::updateSpotById($id, $spot);

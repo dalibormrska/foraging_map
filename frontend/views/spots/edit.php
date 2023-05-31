@@ -38,8 +38,8 @@ Template::header("Foraging Map");
                     <span class="sr-only">Search</span>
                 </button>
             </div>
-            <p class="text-gray-400 font-medium"></p>
-            <hr class="h-px mt-1 mb-4 bg-gray-200 border-0 dark:bg-gray-300">
+            <p class="text-gray-400 font-medium text-lg"><?=$this->model->type_id ?></p>
+            <br>
             <label for="Lat" class="block mb-2 text-sm font-medium text-gray-900 ">Latitude</label>
             <input type="text" name="lat_coord" id="lat_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-7 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="<?= $this->model->lat_coord ?>">
             <label for="Lng" class="block mb-2 text-sm font-medium text-gray-900">Longitude </label>
@@ -49,8 +49,9 @@ Template::header("Foraging Map");
             <br>
             <button type="submit" class="text-white bg-green-900 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-900 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
+
         <form action="<?= $this->home ?>/<?= $this->model->spot_id ?>/delete" method="post">
-            <input type="submit" value="Delete" class="btn delete-btn">
+            <input type="submit" value="Delete" class="btn delete-btn mt-4 text-orange-600 underline hover:font-bold">
         </form>
     </div>
     <!-- Main Content -->
