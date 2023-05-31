@@ -34,6 +34,7 @@ Template::header("Foraging Map");
                     <!-- Combobox input -->
                     <input id="combobox" type="text" class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" role="combobox" aria-controls="options" aria-expanded="false">
 
+                    <input type="hidden" id="trefle_id" name="trefle_id" value="">
 
 
                     <!-- Arrows icon in the input -->
@@ -50,21 +51,21 @@ Template::header("Foraging Map");
                     <ul class="absolute invisible z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox">
 
                         <!-- Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation. Active: "text-white bg-indigo-600", Not Active: "text-gray-900" -->
-                        <!-- <li class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900" id="option-0" role="option" tabindex="-1">
-                            <div class="flex"> -->
-                        <!-- Selected: "font-semibold" -->
-                        <!-- <span class="truncate">European blueberry</span> -->
-                        <!-- Active: "text-indigo-200", Not Active: "text-gray-500" -->
-                        <!-- <span class="ml-2 truncate text-gray-500">Vaccinium myrtillus</span>
-                            </div> -->
+                        <li class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900" id="option-0" role="option" tabindex="-1">
+                            <div class="flex">
+                                <!-- Selected: "font-semibold" -->
+                                <span class="truncate">European blueberry</span>
+                                <!-- Active: "text-indigo-200", Not Active: "text-gray-500" -->
+                                <span class="ml-2 truncate text-gray-500">Vaccinium myrtillus</span>
+                            </div>
 
-                        <!-- Checkmark, only display for selected option. Active: "text-white", Not Active: "text-indigo-600" -->
-                        <!-- <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                            <!-- Checkmark, only display for selected option. Active: "text-white", Not Active: "text-indigo-600" -->
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                 </svg>
                             </span>
-                        </li> -->
+                        </li>
 
                         <!-- More items... -->
                     </ul>
@@ -82,7 +83,7 @@ Template::header("Foraging Map");
             <label for="Lng" class="block mb-2 text-sm font-medium text-gray-900">Longitude </label>
 
             <input type="text" name="lon_coord" id="lon_coord" aria-describedby="helper-text-explanation" class="bg-white border border-green-700 text-gray-900 text-sm rounded-lg focus:ring-orange-900 focus:border-orange-900 block w-full p-2.5" value="" required>
-            <label for="Description"  class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+            <label for="Description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
 
             <textarea id="Description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-green-700 focus:ring-orange-900 focus:border-orange-900" placeholder="Leave a description..."></textarea>
             <br>
@@ -154,15 +155,18 @@ Template::header("Foraging Map");
 
 
     // TrefleAPI Combobox
-    let plant_input = document.getElementById("combobox")
-    const resultContainer = document.getElementById('options');
+    const plant_input = document.getElementById("combobox")
+    const trefle_input = document.getElementById('trefle_id')
+    const result_container = document.getElementById('options')
+    const search_bar_div = document.getElementById('search-bar')
 
 
-    plant_input.addEventListener('input', function(e) {
+    plant_input.addEventListener('input', showList);
+    plant_input.addEventListener('focus', showList);
 
-
+    function showList(e) {
         // Clear previous results
-        resultContainer.innerHTML = '';
+        result_container.innerHTML = '';
 
 
         if (e.target.value.length >= 2) {
@@ -174,10 +178,13 @@ Template::header("Foraging Map");
 
                     // Process the received data here
                     data.data.forEach(item => {
-                        createComboList(item.common_name, item.scientific_name, item.id)
+
+                        const is_selected = item.id == trefle_input.value ? true : false
+
+                        createComboList(item.common_name, item.scientific_name, item.id, is_selected)
                     });
 
-                    resultContainer.classList.remove('invisible')
+                    result_container.classList.remove('invisible')
 
                 })
                 .catch(error => {
@@ -185,17 +192,23 @@ Template::header("Foraging Map");
                 });
 
         } else {
-            resultContainer.classList.add('invisible')
+            result_container.classList.add('invisible')
         }
-    });
+    }
+
+
+    search_bar_div.addEventListener('blur', closeList);
+
+    function closeList() {
+        result_container.classList.add('invisible')
+    }
 
 
 
 
 
 
-
-    function createComboList(first_text, second_text, trefle_id) {
+    function createComboList(first_text, second_text, trefle_id, is_selected) {
         const li = document.createElement('li');
         li.className = 'relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900'
         li.id = trefle_id
@@ -214,8 +227,24 @@ Template::header("Foraging Map");
         div.appendChild(span1);
         div.appendChild(span2);
 
-        li.appendChild(div);
+        const spanIcon = document.createElement('span')
+        spanIcon.className = 'absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600'
 
+        const svgIcon = document.createElement('svg')
+        svgIcon.setAttribute('class', 'h-5 w-5')
+        svgIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+        svgIcon.setAttribute('viewBox', '0 0 20 20')
+        svgIcon.setAttribute('fill', 'currentColor')
+        svgIcon.setAttribute('aria-hidden', 'true')
+
+        svgIcon.innerHTML = "<svg class='h-5 w-5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'><path fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd' /></svg>"
+
+
+        spanIcon.appendChild(svgIcon);
+
+
+        li.appendChild(div);
+        if (is_selected) li.appendChild(spanIcon);
 
 
         li.addEventListener('mouseenter', function(e) {
@@ -224,6 +253,9 @@ Template::header("Foraging Map");
 
             span2.classList.remove('text-gray-500')
             span2.classList.add('text-slate-300')
+
+            spanIcon.classList.remove('text-indigo-600')
+            spanIcon.classList.add('text-white')
         })
 
         li.addEventListener('mouseleave', function(e) {
@@ -232,20 +264,21 @@ Template::header("Foraging Map");
 
             span2.classList.remove('text-slate-300')
             span2.classList.add('text-gray-500')
+
+            spanIcon.classList.remove('text-white')
+            spanIcon.classList.add('text-indigo-600')
         })
 
-        li.addEventListener('click', function(e, trefle_id) {
-            handlePlantSelection(li, trefle_id)
+        li.addEventListener('click', function(e) {
+            plant_input.value = first_text;
+            trefle_input.value = trefle_id;
+
+            closeList()
         })
 
         // Append the li element to the result container
-        resultContainer.appendChild(li);
+        result_container.appendChild(li);
     }
-
-    function handlePlantSelection(element) {
-        // 
-    }
-
 </script>
 
 <?php Template::footer(); ?>

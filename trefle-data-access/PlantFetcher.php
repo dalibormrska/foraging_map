@@ -15,6 +15,9 @@ class PlantFetcher
     // Fetches all available currencies from the API
     function searchPlants($query)
     {
+
+        $query = rawurlencode($query);
+
         // Construct the URL for the API request using the base URL
         $url = "{$this->base_url}search?q={$query}&token=" . TREFLE_TOKEN;
 
