@@ -25,6 +25,22 @@ class TypesService{
         return $type;
     }
 
+    // Get one customer by creating a database object 
+    // from data-access layer and calling its getOne function.
+    public static function getTypeByTrefleId($trefle_id){
+        $types_database = new TypesDatabase();
+
+        $type = $types_database->getOneByTreffleId($trefle_id);
+
+        // If you need to remove or hide data that shouldn't
+        // be shown in the API response you can do that here
+        // An example of data to hide is types password hash 
+        // or other secret/sensitive data that shouldn't be 
+        // exposed to types calling the API
+
+        return $type;
+    }
+
     // Get all customers by creating a database object 
     // from data-access layer and calling its getAll function.
     public static function getAllTypes(){

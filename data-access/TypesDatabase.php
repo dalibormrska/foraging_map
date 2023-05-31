@@ -25,6 +25,17 @@ class TypesDatabase extends Database
         return $type;
     }
 
+    // Get one type by using the inherited function getOneRowByIdFromTable
+    public function getOneByTreffleId($trefle_id)
+    {
+
+        $result = $this->getOneRowByIdFromTable($this->table_name, "trefle_id", $trefle_id);
+
+        $type = $result->fetch_object("TypeModel");
+
+        return $type;
+    }
+
 
     // Get all types by using the inherited function getAllRowsFromTable
     public function getAll()
