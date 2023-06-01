@@ -54,11 +54,11 @@ class TypesDatabase extends Database
     // Create one by creating a query and using the inherited $this->conn 
     public function insert(TypeModel $type)
     {
-        $query = "INSERT INTO types (trefle_id, common_name, scientific_name) VALUES (?, ?, ?)";
+        $query = "INSERT INTO types (trefle_id, common_name, scientific_name, image_url) VALUES (?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("iss", $type->trefle_id, $type->common_name, $type->scientific_name);
+        $stmt->bind_param("isss", $type->trefle_id, $type->common_name, $type->scientific_name, $type->image_url);
 
         $success = $stmt->execute();
 
@@ -68,11 +68,11 @@ class TypesDatabase extends Database
     // Update one by creating a query and using the inherited $this->conn 
     public function updateById($type_id, TypeModel $type)
     {
-        $query = "UPDATE types SET trefle_id=?, common_name=?, scientific_name=? WHERE type_id=?";
+        $query = "UPDATE types SET trefle_id=?, common_name=?, scientific_name=?, image_url=? WHERE type_id=?";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("issi", $type->trefle_id, $type->common_name, $type->scientific_name, $type_id);
+        $stmt->bind_param("isssi", $type->trefle_id, $type->common_name, $type->scientific_name, $type->image_url, $type_id);
 
         $success = $stmt->execute();
 

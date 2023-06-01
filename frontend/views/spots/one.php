@@ -17,6 +17,15 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
         <h2 class="text-3xl text-gray-700 font-bold"><?= $type->common_name ?></h2>
         <p class="text-gray-400 font-medium"><?= $type->scientific_name ?></p>
         <hr class="h-px mt-1 mb-4 bg-gray-200 border-0 dark:bg-gray-300">
+
+        <?php if ($type->image_url) : ?>
+
+            <div class="mb-4 rounded-lg overflow-hidden hover:overflow-auto">
+                <img src="<?= $type->image_url ?>" alt="Image of <?= $type->common_name ?>" class="w-full object-cover h-48 hover:object-scale-down hover:h-auto">
+            </div>
+
+        <?php endif; ?>
+
         <div class="user-icon">
             <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mb-3">
                 <svg class="absolute w-12 h-12 text-gray-400 -left-1 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +49,7 @@ $spot = SpotsService::getSpotById($this->model->spot_id);
                 <?php else : ?>
                     <h2 class="text-orange-400 font-medium mt-4 py-8">
                         Only creator can edit. </h2>
-                    <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 mt-2 hover:bg-green-700 hover:text-orange-50 mt-4" href="<?= $this->home ?>/new">Create spot</a>
+                    <a class="text-green-700 border border-green-700 rounded-full px-4 py-2 mt-2 hover:bg-green-700 hover:text-orange-50" href="<?= $this->home ?>/new">Create spot</a>
 
                 <?php endif; ?>
             <?php else : ?>

@@ -10,10 +10,10 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 
 class Database
 {
-    private $host = "localhost";
-    private $user = "root";
-    private $pass = "root";
-    private $db = "foraging_map";
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASSWORD;
+    private $db = DB_DATABASE;
 
     protected $conn;
 

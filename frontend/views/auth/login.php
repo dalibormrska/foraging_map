@@ -12,7 +12,7 @@ Template::header("Login", $this->model["error"]);
             <br>
             <input type="password" name="password" placeholder="Password" class="w-64 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 mb-4">
             <br>
-            <input type="submit" value="Log in" class="w-64 px-4 py-2 text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">
+            <input type="submit" value="Log in" class="w-64 text-gray-900 border border-green-900 rounded-full px-4 py-2 hover:bg-green-800 hover:text-white">
         </form>
 
         <h2 class="text-orange-400 font-medium mt-4 py-8">

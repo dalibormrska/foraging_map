@@ -13,4 +13,5 @@ class TypeModel
     public $trefle_id;
     public $common_name;
     public $scientific_name;
+    public $image_url;
 }

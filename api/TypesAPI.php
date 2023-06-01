@@ -101,6 +101,8 @@ class TypesAPI extends RestAPI
         $type->trefle_id = $this->body["trefle_id"];
         $type->common_name = $this->body["common_name"];
         $type->scientific_name = $this->body["scientific_name"];
+        $type->image_url = $this->body["image_url"];
+
 
         $success = TypesService::saveType($type);
 
@@ -123,6 +125,7 @@ class TypesAPI extends RestAPI
         $type->trefle_id = $this->body["trefle_id"];
         $type->common_name = $this->body["common_name"];
         $type->scientific_name = $this->body["scientific_name"];
+        $type->image_url = $this->body["image_url"];
 
         $success = TypesService::updateTypeById($id, $type);
 

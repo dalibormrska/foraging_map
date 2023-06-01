@@ -22,6 +22,7 @@ class TrefleService {
         $filtered_plant->trefle_id = $plant_id;
         $filtered_plant->common_name = $plant['data']['common_name'];
         $filtered_plant->scientific_name = $plant['data']['scientific_name'];
+        $filtered_plant->image_url = $plant['data']['image_url'];
 
         return $filtered_plant;
     }
