@@ -67,6 +67,8 @@ class MapController extends ControllerBase
 
     private function showCreateNewSpot()
     {
+        $this->requireAuth();
+
         $this->model = SpotsService::getAllSpots();
 
         $this->viewPage("spots/new");
@@ -81,13 +83,16 @@ class MapController extends ControllerBase
 
     private function showEditSpot($id)
     {
+        $this->requireAuth();
+
         $this->model = $this->getOneSpot($id);
 
-        $this->viewPage("spots/edit");
+        if ($this->model->user_id == $this->user->user_id || $this->requireAuth([1])) {
+            $this->viewPage("spots/edit");
+        } else {
+            $this->forbidden();
+        }
     }
-
-
-
 
 
     private function getOneSpot($id)

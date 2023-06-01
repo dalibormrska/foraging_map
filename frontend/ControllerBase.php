@@ -92,6 +92,8 @@ class ControllerBase
         if (count($authorized_roles) > 0 && in_array($this->user->user_role, $authorized_roles) === false) {
             $this->forbidden();
         }
+
+        return true;
     }
 
     private function removeEmptyStrings($arr)
