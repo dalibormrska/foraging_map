@@ -91,6 +91,8 @@ class SpotsAPI extends RestAPI
         $spot->type_id = $this->body["type_id"];
         $spot->lat_coord = $this->body["lat_coord"];
         $spot->lon_coord = $this->body["lon_coord"];
+        $spot->description = $this->body["description"];
+
 
         // Admins can create a spot for any user
         if ($this->user->user_role === 1) {
@@ -116,10 +118,10 @@ class SpotsAPI extends RestAPI
 
         $spot = new SpotModel();
 
-        $spot->user_id = $this->body["user_id"];
         $spot->type_id = $this->body["type_id"];
         $spot->lat_coord = $this->body["lat_coord"];
         $spot->lon_coord = $this->body["lon_coord"];
+        $spot->description = $this->body["description"];
 
         // Admins can create a spot for any user
         if ($this->user->user_role === 1) {

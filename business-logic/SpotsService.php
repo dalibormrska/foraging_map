@@ -19,12 +19,9 @@ class SpotsService
 
         $spot = $spots_database->getOne($id);
 
-        // Add trefle_id
-        $types_database = new TypesDatabase();
-
-        $type = $types_database->getOne($spot->type_id);
-
-        $spot->trefle_id = $type->trefle_id;
+        if ($spot) {
+            $spot = self::attachTreffleId($spot);
+        }
 
         return $spot;
     }
@@ -37,11 +34,11 @@ class SpotsService
 
         $spots = $spots_database->getAll();
 
-        // If you need to remove or hide data that shouldn't
-        // be shown in the API response you can do that here
-        // An example of data to hide is users password hash 
-        // or other secret/sensitive data that shouldn't be 
-        // exposed to users calling the API
+        if ($spots) {
+            foreach ($spots as $spot) {
+                $spot = self::attachTreffleId($spot);
+            }
+        }
 
         return $spots;
     }
@@ -124,5 +121,21 @@ class SpotsService
         $success = $spots_database->deleteById($spot_id);
 
         return $success;
+    }
+
+
+
+    // Helper function
+    public static function attachTreffleId($spot)
+    {
+
+        // Add trefle_id
+        $types_database = new TypesDatabase();
+
+        $type = $types_database->getOne($spot->type_id);
+
+        $spot->trefle_id = $type->trefle_id;
+
+        return $spot;
     }
 }

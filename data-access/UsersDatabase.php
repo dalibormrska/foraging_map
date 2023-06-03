@@ -109,11 +109,11 @@ class UsersDatabase extends Database
     // Update one by creating a query and using the inherited $this->conn 
     public function updateById($user_id, UserModel $user)
     {
-        $query = "UPDATE users SET username=?, password_hash=? WHERE user_id=?";
+        $query = "UPDATE users SET username=?, password_hash=?, user_role=? WHERE user_id=?";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bind_param("ssi", $user->username, $user->password_hash, $user_id);
+        $stmt->bind_param("ssii", $user->username, $user->password_hash, $user->user_role, $user_id);
 
         $success = $stmt->execute();
 

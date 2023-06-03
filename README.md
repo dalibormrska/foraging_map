@@ -19,6 +19,12 @@ Even if you don't log in you can see all the spots created by other users.
 - API endpoint with token authentication
 - External API to search for plants and retrieve info about a plant
 
+## Start
+
+Fork the repo and feel free to import the provided database dump.
+
+Then create a `config.php` file in the root of the project where you should define the `APPLICATION_NAME`, the database credentials `DB_HOST`, `DB_USER`, `DB_PASSWORD` and `DB_DATABASE` and lastly your own `JWT_SECRET` and `TREFLE_TOKEN`.
+
 ## Start tailwind
 
 Tailwind is included as a standalone CLI configuration with an `tailwindcss` executable in the `frontend/` folder. The executable might need to be replaced by one that is suitable for your architecture. Read more about it, and download suitable executable at [Tailwind's blog](https://tailwindcss.com/blog/standalone-cli). 

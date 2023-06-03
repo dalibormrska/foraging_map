@@ -120,7 +120,8 @@ class UsersAPI extends RestAPI
         $user = new UserModel();
 
         $user->username = $this->body["username"];
-        $user->password_hash = $this->body["password"];
+        $user->password_hash = $this->body["password_hash"];
+        $user->user_role = $this->body["user_role"];
 
         $success = UsersService::updateUserById($id, $user);
 

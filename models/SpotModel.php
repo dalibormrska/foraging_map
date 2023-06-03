@@ -12,7 +12,10 @@ class SpotModel
     public $spot_id;
     public $user_id;
     public $type_id;
+    
+    // extra one not in the db
     public $trefle_id;
+
     public $creation_date;
     public $lat_coord;
     public $lon_coord;
